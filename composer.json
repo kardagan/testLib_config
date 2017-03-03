@@ -1,0 +1,27 @@
+{
+  "name": "kardagan/testlibconf",
+  "description": "",
+  "require": {
+    "php": ">=5.5.9"
+  },
+  "require-dev": {
+    "phpro/grumphp": "^0.11.2",
+    "jakub-onderka/php-parallel-lint": "^0.9.2",
+    "friendsofphp/php-cs-fixer": "^2.1",
+    "nikic/php-parser": "^3.0",
+    "phpmd/phpmd" : "@stable"
+  },
+  "extra" : {
+    "branch-alias" : {
+      "dev-master" : "master"
+    }
+  },
+  "scripts": {
+	"post-install-cmd": {
+		"php -r \"copy('vendor/kardagan/testlibconf/grumphp.yml', 'grumphp.yml');\""
+	},
+	"post-update-cmd": {
+		"php -r \"copy('vendor/kardagan/testlibconf/grumphp.yml', 'grumphp.yml');\""
+	}
+  }
+}
