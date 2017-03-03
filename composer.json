@@ -18,10 +18,10 @@
   },
   "scripts": {
 	"post-install-cmd": [
-		"php -r \"copy('vendor/kardagan/testlibconf/grumphp.yml', 'grumphp.yml');\""
+		"php -r \"copy('grumphp.yml', 'grumphp.yml');\""
 	],
 	"post-update-cmd": [
-		"php -r \"copy('vendor/kardagan/testlibconf/grumphp.yml', 'grumphp.yml');\""
+		"php -r \"copy('grumphp.yml', 'grumphp.yml');\""
 	]
   }
 }
