@@ -17,11 +17,16 @@
     }
   },
   "scripts": {
-	"post-install-cmd": [
-		"php -r \"copy('grumphp.yml', 'grumphp.yml');\""
-	],
-	"post-update-cmd": [
-		"php -r \"copy('grumphp.yml', 'grumphp.yml');\""
-	]
-  }
+  	"post-update-cmd": [
+            "Composer::integrate"
+        ],
+        "post-install-cmd": [
+            "Composer::integrate"
+        ]
+  },
+  "autoload": {
+        "psr-0": {
+            "Composer": ""
+        }
+    }
 }
