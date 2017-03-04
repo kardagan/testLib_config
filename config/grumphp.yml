@@ -1,0 +1,46 @@
+parameters:
+    bin_dir: vendor/bin
+    tasks:
+        phpcsfixer2:
+            allow_risky: false
+            config: ~
+            rules: []
+            using_cache: false
+            path_mode: ~
+            verbose: true
+            diff: false
+            triggered_by: ['php']
+            diff: true
+        phplint:
+            exclude: []
+            jobs: ~
+            triggered_by: ['php']
+        phpparser:
+            visitors:
+                forbidden_function_calls:
+                    blacklist:
+                        - 'var_dump'
+                        - 'dump'
+                        - 'die'
+                        - 'exit'
+        yamllint:
+            ignore_patterns: []
+            object_support: false
+            exception_on_invalid_type: true
+        xmllint:
+            ignore_patterns: []
+            load_from_net: false
+            x_include: false
+            dtd_validation: false
+            scheme_validation: false
+            triggered_by: [xml]
+        securitychecker:
+            lockfile: ./composer.lock
+            format: ~
+            end_point: ~
+            timeout: ~
+            run_always: false
+#        phpmd:
+#            exclude: []
+#            ruleset: ['naming'] # 'cleancode', 'codesize',
+#            triggered_by: ['php']

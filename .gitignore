@@ -1,1 +1,4 @@
 .idea
+grumphp.yml
+!config/grumphp.yml
+composer.lock
