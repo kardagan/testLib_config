@@ -15,12 +15,8 @@
     }
   },
   "scripts": {
-  	"post-update-cmd": [
-            "Composer::integrate"
-        ],
-        "post-install-cmd": [
-            "Composer::integrate"
-        ]
+    "post-update-cmd": "Composer::integrate",
+    "post-install-cmd": "Composer::integrate"
   },
   "autoload": {
         "psr-0": {
