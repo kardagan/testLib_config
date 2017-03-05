@@ -1,6 +1,5 @@
 <?php
 
-
 use Composer\Composer;
 use Composer\DependencyResolver\Operation\InstallOperation;
 use Composer\DependencyResolver\Operation\UninstallOperation;
@@ -9,9 +8,11 @@ use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\Installer\PackageEvents;
 use Composer\Installer\PackageEvent;
 use Composer\IO\IOInterface;
+use Composer\Package\PackageInterface;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
+
 
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
