@@ -15,8 +15,6 @@ use Composer\Script\ScriptEvents;
 
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
-    const PACKAGE_NAME = 'kardagan/testlibconf';
-
     /**
      * @var Composer
      */
@@ -63,33 +61,33 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     }
 
     /**
-     * When this package is updated, the git hook is also initialized
+     * When this package is updated
      *
      * @param PackageEvent $event
      */
     public function postPackageInstall(PackageEvent $event)
     {
-        $event->getIO()->write('<fg=red>MON TEST : ' . __FUNCTION__ . '</fg=red>');
+        $this->copyConfigFile($event);
     }
 
     /**
-     * When this package is updated, the git hook is also updated
+     * When this package is updated
      *
      * @param PackageEvent $event
      */
     public function postPackageUpdate(PackageEvent $event)
     {
-        $event->getIO()->write('<fg=red>MON TEST : ' . __FUNCTION__ . '</fg=red>');
+        $this->copyConfigFile($event);
     }
 
     /**
-     * When this package is uninstalled, the generated git hooks need to be removed
+     * When this package is uninstalled
      *
      * @param PackageEvent $event
      */
     public function prePackageUninstall(PackageEvent $event)
     {
-        $event->getIO()->write('<fg=red>MON TEST : ' . __FUNCTION__ . '</fg=red>');
+        $this->removeConfigFile($event);
     }
 
     /**
@@ -97,6 +95,26 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function runScheduledTasks(Event $event)
     {
-        $event->getIO()->write('<fg=red>MON TEST : ' . __FUNCTION__ . '</fg=red>');
+        $this->copyConfigFile($event);
+    }
+
+    public static function copyConfigFile(Event $event)
+    {
+        $event->getIO()->write("<fg=white>Copie du fichier grumphp.yml à la racine.</fg=white>");
+        if (copy('config/grumphp.yml', $event->getComposer()->getConfig()->get('vendor-dir') . '/../grumphp.yml')) {
+            $event->getIO()->write('<fg=green>Copie du fichier grumphp.yml effectuée</fg=green>');
+        } else {
+            $event->getIO()->write('<fg=red>Erreur lors de la copie du fichier grumphp.yml</fg=red>');
+        }
+    }
+
+    public static function removeConfigFile(Event $event)
+    {
+        $event->getIO()->write("<fg=white>Suppression du fichier grumphp.yml à la racine.</fg=white>");
+        if (unlink($event->getComposer()->getConfig()->get('vendor-dir') . '/../grumphp.yml')) {
+            $event->getIO()->write('<fg=green>Suppression du fichier grumphp.yml effectuée</fg=green>');
+        } else {
+            $event->getIO()->write('<fg=red>Erreur lors de la suppression du fichier grumphp.yml</fg=red>');
+        }
     }
 }

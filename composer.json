@@ -17,17 +17,7 @@
     },
     "class": "Plugin"
   },
-  "scripts": {
-    "post-update-cmd": "Composer::integrate",
-    "post-install-cmd": "Composer::integrate"
-  },
   "autoload": {
-    "psr-0": {
-      "Composer": "src",
-      "Plugin": "src"
-    }
-  },
-  "autoload-dev": {
     "psr-0": {
       "Composer": "src",
       "Plugin": "src"
