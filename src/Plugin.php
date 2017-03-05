@@ -65,69 +65,63 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 
     /**
      * When this package is updated
-     *
-     * @param PackageEvent $event
      */
-    public function postPackageInstall(PackageEvent $event)
+    public function postPackageInstall()
     {
-        $this->copyConfigFile($event);
+        $this->copyConfigFile();
     }
 
     /**
      * When this package is updated
-     *
-     * @param PackageEvent $event
      */
-    public function postPackageUpdate(PackageEvent $event)
+    public function postPackageUpdate()
     {
-        $this->copyConfigFile($event);
+        $this->copyConfigFile();
     }
 
     /**
      * When this package is uninstalled
-     *
-     * @param PackageEvent $event
      */
-    public function prePackageUninstall(PackageEvent $event)
+    public function prePackageUninstall()
     {
-        $this->removeConfigFile($event);
+        $this->removeConfigFile();
     }
 
     /**
      * @param Event $event
      */
-    public function runScheduledTasks(Event $event)
+    public function runScheduledTasks()
     {
-        $this->copyConfigFile($event);
+        $this->copyConfigFile();
     }
 
-    private function copyConfigFile(Event $event)
+    private function copyConfigFile()
     {
-        $event->getIO()->write('<fg=white>Copie du fichier ' . self::FILE_NAME . ' à la racine.</fg=white>');
-        if (copy($this->getSourcePath($event), $this->getDestPath($event))) {
-            $event->getIO()->write('<fg=green>Copie du fichier ' . self::FILE_NAME . ' effectuée</fg=green>');
+        $this->io->write('<fg=white>Copie du fichier ' . self::FILE_NAME . ' à la racine.</fg=white>');
+        if (copy($this->getSourcePath(), $this->getDestPath())) {
+            $this->io->write('<fg=green>Copie du fichier ' . self::FILE_NAME . ' effectuée</fg=green>');
         } else {
-            $event->getIO()->write('<fg=red>Erreur lors de la copie du fichier ' . self::FILE_NAME . '</fg=red>');
+            $this->io->write('<fg=red>Erreur lors de la copie du fichier ' . self::FILE_NAME . '</fg=red>');
         }
     }
 
-    private function removeConfigFile(Event $event)
+    private function removeConfigFile()
     {
-        $event->getIO()->write('<fg=white>Suppression du fichier grumphp.yml à la racine.</fg=white>');
-        if (unlink($this->getSourcePath($event))) {
-            $event->getIO()->write('<fg=green>Suppression du fichier grumphp.yml effectuée</fg=green>');
+        $this->io->write('<fg=white>Suppression du fichier grumphp.yml à la racine.</fg=white>');
+        if (unlink($this->getSourcePath())) {
+            $this->io->write('<fg=green>Suppression du fichier grumphp.yml effectuée</fg=green>');
         } else {
-            $event->getIO()->write('<fg=red>Erreur lors de la suppression du fichier grumphp.yml</fg=red>');
+            $this->io->write('<fg=red>Erreur lors de la suppression du fichier grumphp.yml</fg=red>');
         }
     }
 
-    private function getSourcePath(PackageEvent $event)
+    private function getSourcePath()
     {
-        return $event->getComposer()->getConfig()->get('vendor-dir') . '/' . self::PACKAGE_NAME . '/config/' . self::FILE_NAME;
+        return $this->composer->getConfig()->get('vendor-dir') . '/' . self::PACKAGE_NAME . '/config/' . self::FILE_NAME;
     }
 
-    private function getDestPath(PackageEvent $event)
+    private function getDestPath()
     {
-        return $event->getComposer()->getConfig()->get('vendor-dir') . '/../' . self::FILE_NAME;
+        return $this->composer->getConfig()->get('vendor-dir') . '/../' . self::FILE_NAME;
     }
 }
