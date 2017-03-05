@@ -93,12 +93,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     /**
      * @param Event $event
      */
-    public function runScheduledTasks(Event $event)
+    public function runScheduledTasks(PackageEvent $event)
     {
         $this->copyConfigFile($event);
     }
 
-    public static function copyConfigFile(Event $event)
+    public static function copyConfigFile(PackageEvent $event)
     {
         $event->getIO()->write("<fg=white>Copie du fichier grumphp.yml à la racine.</fg=white>");
         if (copy('config/grumphp.yml', $event->getComposer()->getConfig()->get('vendor-dir') . '/../grumphp.yml')) {
@@ -108,7 +108,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         }
     }
 
-    public static function removeConfigFile(Event $event)
+    public static function removeConfigFile(PackageEvent $event)
     {
         $event->getIO()->write("<fg=white>Suppression du fichier grumphp.yml à la racine.</fg=white>");
         if (unlink($event->getComposer()->getConfig()->get('vendor-dir') . '/../grumphp.yml')) {
