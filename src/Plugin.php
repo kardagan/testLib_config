@@ -13,7 +13,6 @@ use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
 
-
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
     const PACKAGE_NAME = 'kardagan/testlibconf';
