@@ -99,5 +99,4 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     {
         $event->getIO()->write('<fg=red>MON TEST : ' . __FUNCTION__ . '</fg=red>');
     }
-
 }
