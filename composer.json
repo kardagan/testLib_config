@@ -1,6 +1,7 @@
 {
   "name": "kardagan/testlibconf",
   "description": "",
+  "type": "composer-plugin",
   "require": {
     "php": ">=5.5.9",
     "phpro/grumphp": "^0.11.2",
